@@ -131,11 +131,23 @@ There are four types of Appendix as follows:
 ##### Installation of TensorRT
 <details>
 <summary>Details</summary>
-
 This section is only for enthusiasts who want to improve performance even by 1ms/frame.  
 （Using GTX1080Ti in our dev env, TensorRT has better performance than DirectML by 1ms/frame/camera in Precision mode, for example.)    
+
 Requires an Nvidia GPU that supports CUDA, cuDNN, and TensorRT.    
-RTX30** series is not supported.   
+Please note that the versions of cuDNN and TensorRT are different for RTX30** series and others as shown below (\*3).  
+
+For the RTX30 ** series, we only tested RTX3060Ti and RTX3070. Others are not tested.
+
+|              | Other than RTX30** series               | RTX30** series                             |
+| ------------ | --------------------------------------- | ------------------------------------------ |
+| **CUDA**     | 11.0.3                                  | 11.0.3                                     |
+| **cuDNN**    | v8.0.2 (July 24th, 2020), for CUDA 11.0 | v8.0.5 (November 9th, 2020), for CUDA 11.0 |
+| **TensorRT** | 7.1.3.4 for CUDA 11.0                   | 7.2.2.3 for CUDA 11.0                      |
+
+> (\*3: The versions for RTX30** series were provided by [漆原 鎌足](https://twitter.com/kamatari_san/status/1435536643901902852) san. Thank you!)   
+
+From now on, we will only explain the case of **other than RTX30\*\* series**. If you are using RTX30\*\* series, please read the versions as appropriate.
 
 1. Install [CUDA 11.0.3](https://developer.nvidia.com/cuda-11.0-update1-download-archive?target_os=Windows&target_arch=x86_64&target_version=10&target_type=exenetwork)   
     Please note that the installer may fail to install the NVIDIA driver. In that case, please install the latest NVIDIA driver manually.    
@@ -370,6 +382,7 @@ You can select the framework to control the camera by pressing the "▼" next to
 
 - **Direct show:** Microsoft's media framework. You can use the OBS-VirtualCam plugin with this.
 - **UE4 media player:** UE4's media framework. Better performance at high resolution. Some cameras don't work with this.
+- **Recorded video**: Use recorded video instead of camera. See [ Motion capture from recorded videos](#Motion-capture-from-recorded-videos).
 
 If the camera works with UE4 media player, it is recommended to use it. If it doesn't work, use Direct Show.
 
@@ -635,7 +648,7 @@ Please note that Virtual Motion Tracker is a separated program from MocapForAll.
 - Set the port of "Settings> Data export> VMT protocol> Send tracking points" to "39570".
 - Turn on the required parts under "Settings > Data export > VMT protocol > Send tracking points > Tracking points to be sent".
   - For example, if you want to use it in VRChat, turn on "Pelvis" and "Feet"
-    - For "Pelvis" and "Feet", you can adjust the offset of the virtual tracker position by clicking the ">" on the left side of each.
+  - You can adjust the offset of the virtual tracker position by clicking the ">" on the left side of each.
 
 For the following settings, please decide on/off by your preference. We recommend that you try turning on first, and then try turning off if you are really serious about the motion.
 
@@ -817,6 +830,26 @@ You can specify the names of facial morph targets if you are using VRM models.
 Delete "C:\Users\\[User name]\AppData\Local\MocapForAll" to reset all the settings
 
 If MocapForAll does not launch for some reason, resetting the settings may solve the problem.
+
+## Motion capture from recorded videos
+
+From v1.12, you can capture motion using recorded videos.
+
+### How to use
+
+- Select "Recorded video" from the "▼" next to "Add camera" at the top of the MocapForAll window.   
+- Press the "..." button and select the video file.  
+- After that, the usage is basically the same as a normal webcam.
+
+### Playback positions
+
+- The video will automatically loop.
+- The playback position of the video will return to the beginning of the video when you press "Start Capture".
+
+### Tips
+
+- It is recommended to separate the video files for intrinsic parameter calibration, extrinsic parameter calibration, and actual motion capture.
+- There is no function to analyze the videos and synchronize the movements between them, so it is necessary to edit the videos in advance so that the movements will be synchronized when they are played at the same time from the beginning. When recording videos, it is recommended to clarify the starting point with a clapperboard or the sound of clapping your hands.
 
 # FAQ
 ## The camera does not work
