@@ -14,12 +14,14 @@
   - [Use in other apps via VMC protocol](#Use-in-other-apps-via-VMC-protocol-1)
   - [Save as BVH files](#Save-as-BVH-files)
   - [Use in UE4, UE5, Unity](#Use-in-UE4-UE5-Unity)
-
+  
 - [How to use 3: Other settings](#How-to-use-3-Other-settings)
 
 - [FAQ](#FAQ)
 
 - [Known issues](#Known-issues)
+
+- [Acknowledgements](Acknowledgements)
 
  
 
@@ -910,3 +912,9 @@ Please install the latest MocapForAll. From version 1.0 and above, you do not ne
 ## TensorRT mode does not work on RTX30xx series
 
 Use DirectML mode.
+
+
+
+# Acknowledgements
+
+We express our sincere thanks to Gonzales kévin, "Raybox41130" for the French translation.
